@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css" />
+    <link href="/static/css/ngDialog.min.css" rel="stylesheet" />
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <script src="/static/js/ngDialog.min.js" ></script>
+    <link rel="stylesheet" href="/static/css/ngDialog.min.css">
+    <link rel="stylesheet" href="/static/css/ngDialog-theme-default.min.css">
+    <link rel="stylesheet" href="/static/css/ngDialog-theme-plain.min.css">
+    <script src="/static/js/home.js"></script>
+    <script type="text/javascript"></script>
+    <style>
+        #welcome{ 
+            text-align:center;
+            color:white;
+            margin: 0 auto;
+            background-color:Black;
+            margin-top:60px;
+            font-size:36pt;
+        }
+        #main{
+            margin: 0 auto;
+            background-color:Black;
+        }
+        .Login{
+            font-size:25pt;
+            color:white;
+            margin-top:15px;
+            cursor:pointer;
+        }
+        .q{
+            font-size:14px;
+            color:white;
+        }
+    </style>
+</head>
+<body ng-controller="MainCtrl as m">
+    <div id='main'>
+        <div id='welcome'>Pandora Health Monitor</div>
+        <div style='text-align:center;padding-bottom:15px;'>
+            <div><img src='https://mysteryoftheinquity.files.wordpress.com/2012/03/pandoras_box_legends.jpg' width='30%' style='float:center;' /></div>
+            <div class="Login" ng-click="m.login()">Login In</div>
+        </div>
+        <div style='text-align:center;padding-bottom:15px;'>
+            <div ng-show="m.show">
+                <div class="q">What is CEO's English name ? </div>
+                <input type='text' ng-model="m.answer1" />
+                <div class="q">What is Leader's English name ?</div>
+                <input type='text' ng-model="m.answer2" />
+            </div>
+        </div>
+    <div>
+</body>
+</html>
+

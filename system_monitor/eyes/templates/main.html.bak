@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css" />
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/smoothness/jquery-ui.css">
+    <link href="/static/css/ngDialog.min.css" rel="stylesheet" />
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <script src="/static/js/ngDialog.min.js" ></script>
+    <script src='/static/js/blockUI/jquery.blockUI.js'></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="/static/js/c3/c3.min.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/spin.js/1.2.7/spin.min.js"></script>
+    <script src="//rawgithub.com/darthwade/angular-loading/master/angular-loading.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="//rawgithub.com/darthwade/angular-loading/master/angular-loading.css"/>
+    <link rel="stylesheet" href="/static/css/ngDialog.min.css">
+    <link rel="stylesheet" href="/static/css/ngDialog-theme-default.min.css">
+    <link rel="stylesheet" href="/static/css/ngDialog-theme-plain.min.css">
+    <link href="/static/js/c3/c3.css" rel="stylesheet" type="text/css">
+    <script src="/static/js/main.js"></script>
+    <script type="text/javascript"></script>
+    <style>
+        #welcome{ 
+            text-align:center;
+            color:white;
+            margin: 0 auto;
+            margin-top:60px;
+            font-size:36pt;
+        }
+        .main{
+            margin: 0 auto;
+            height: 100%;
+        }
+        .header{
+            width:100%;
+            height:23px;
+            background-color:Black;
+        }
+        .highlight {
+            font-size:14px;
+            font-family:monospace;
+            background-color: Black;
+            color:White;
+        }
+        .arraw{
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 4.5px 0 4.5px 7.8px;
+            border-color: transparent transparent transparent #000000;
+        }
+        .warraw{
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 4.5px 0 4.5px 7.8px;
+            border-color: transparent transparent transparent #ffffff;
+        }
+        .up{
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 7.5px 13px 7.5px;
+            border-color: transparent transparent #ffffff transparent;
+        }
+        .down{
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 13px 7.5px 0 7.5px;
+            border-color: #ffffff transparent transparent transparent;
+        }
+        .leftdiv{
+            float:left;
+            font-family:monospace;
+            width:16%;
+            height:100%;
+        }
+        .middlediv{
+            float:left;
+            margin-left:9px;
+            width:36%;
+        }
+        .rightdiv{
+            float:right;
+            margin:10px 10px 0px 10px;
+            width:46%;
+        }
+        html, body {
+            margin: 0; padding: 0; height: 100%; border:none;
+        }
+        tbody {
+            height: 120px;
+            overflow-y: auto;
+        }
+        .ddiv{
+            height: 100%;
+            background-color:White;
+        }
+        .leftbar{
+            background-color:#DDDDDD;
+        }
+        .title_bottom{
+            font-family: monospace;
+            padding-top: 8px;
+            padding-bottom: 8px;
+            color: #777;
+            text-align: left;
+        }
+        .tt {
+            width: 100%;
+            //display:block;
+            overflow:auto;
+            height:100px;
+        }
+        .thea{
+            //display:block;
+            margin:0px;
+            cell-spacing:0px;
+            color:white;
+            background-color:Black;
+            left:0px;
+        }
+
+    </style>
+</head>
+<body id='bd1' ng-controller="MainCtrl as m" ng-app='myApp'>
+<div dw-loading="users" dw-loading-options="options">
+    <div class='test'>
+        <div>
+            <span>
+                <h1 style="margin-left:20px">JobTask <small>Monitor</small></h1>
+            </span>
+        </div>
+        <div>
+            <div style="background-color:#d1e0e0;height:100px;">
+                <input type='text' placeholder="enter e.g. 20151114" style='margin-left:10px;' ng-model="m.date"></input><Button style='margin-left:5px' class='btn btn-primary' ng-click='m.getreport()'>Search</Button>
+                <input id="ff" placeholder="enter filter" ng-model="m.filter.shopid"></input>
+                <div style='margin-left:10px;' ng-show='m.report'>
+                    <h4><span>The Bad Health Counts is </span><span ng-bind='m.badcount'></span></h4>
+                    <h5>The unhealth client is follow:<span ng-repeat='client in m.bads' ng-bind='client'></span></h5>
+                </div>
+            </div>
+        </div>
+        <div ng-show='m.report' style='width:90%;margin:0 auto;'>
+            <table class='table table-hover table-bordered' ng-repeat="item in m.tasklogs | filter:m.filter">
+                <tr>
+                    <td width="100%" style='cursor:pointer' colspan="2">
+                        <h3 style='text-align:center'><span ng-bind="item.shopid"></span></h3>
+                    </td>
+                </tr>
+                <tr>
+                    <td><h4>Module Task</h4></td>
+                    <td><h4>Suucess</h4></td>
+                </tr>
+                <tr ng-repeat="job in item.jobs">
+                    <td><span ng-bind="job.description"></span></td>
+                    <td>
+                        <img src="/static/images/green.png" style='width:30px;' ng-show='job.success'></img>
+                        <img src="/static/images/red.png" style='width:30px;' ng-show='job.failed'></img>
+                    </td> 
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
